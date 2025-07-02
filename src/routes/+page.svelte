@@ -16,10 +16,10 @@
 
 <section class="account-trapezoid">
     <Account accountGroup={0}>
-        <span slot="buttonText">신랑측 혼주 및 신랑 계좌번호</span>
+        <span slot="buttonText">신랑 측 마음전하기</span>
     </Account>
     <Account accountGroup={1}>
-        <span slot="buttonText">신부측 혼주 및 신부 계좌번호</span>
+        <span slot="buttonText">신부 측 마음전하기</span>
     </Account>
 </section>
 

@@ -2,47 +2,7 @@
 	import { localeStore } from '../i18n.svelte';
 	import { _ } from 'svelte-i18n';
 	import Carousel from 'svelte-light-carousel';
-
-	const photos = [
-		{
-			src: "/1.webp"
-		},
-		{
-			src: "/2.webp"
-		},
-		{
-			src: "/3.webp"
-
-		},
-		{
-			src: "/4.webp"
-		},
-		{
-			src: "/5.webp"
-		},
-		{
-			src: "/6.webp"
-		},
-		{
-			src: "/7.webp"
-		},
-		{
-			src: "/8.webp"
-		},
-		{
-			src: "/9.webp"
-		},
-		{
-			src: "/10.webp"
-		},
-		{
-			src: "/11.webp"
-		},
-		{
-			src: "/12.webp"
-		}
-	];
-
+	const photos = Array.from({ length: 23 }, (_, i) => ({ src: `/${i + 1}.webp` }));
 	let dotCarousel: HTMLDivElement; // 썸네일 캐러셀 요소를 참조하기 위한 변수
 </script>
 

@@ -28,15 +28,9 @@
 			</div>
 		{:else}
 			<div class="family-description kr">
-				<p>
-					김성훈<span class="name-divider">{@html nameDivider}</span> 윤경숙
-					<span class="son">의 아들</span>윤근
-				</p>
-				<p>
-					정재철<span class="name-divider">{@html nameDivider}</span> 김선순<span class="daughter"
-						>의 딸</span
-					>수진
-				</p>
+				<span class="groom">신랑 김윤근</span>
+				<span class="name-divider" style="margin: 0 1em;">{@html nameDivider}</span>
+				<span class="bride">신부 정수진</span>
 			</div>
 		{/if}
 	</div>
@@ -111,39 +105,29 @@
 	}
 	img.letter-bottom{
 		max-width: 600px;
-		width: 100%;
+		width: 600px;
 		margin: 0 auto;
 	}
 
 	.family-description {
 		margin-top: 2em;
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
+		justify-content: center;
 		align-items: center;
+		gap: 0.5em;
 
-		p {
+		span.groom, span.bride {
 			color: $font-color-default;
-			display: grid;
-			grid-template-columns: 1fr auto 1fr 1fr 1fr;
-			column-gap: 0.5em;
-			margin-bottom: 20px;
+			font-size: 1.1em;
+			text-align: center;
+		}
+
+		.name-divider {
+			display: flex;
 			align-items: center;
-			justify-items: center;
-
-			.name-divider {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				margin: 0 0.3em;
-			}
-
-			.son,
-			.daughter {
-				display: flex;
-				justify-content: center;
-				color: $primary-color;
-				min-width: 60px;
-			}
+			justify-content: center;
+			margin: 0 0.5em;
 		}
 	}
 </style>
