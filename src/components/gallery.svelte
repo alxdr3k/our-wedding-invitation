@@ -2,22 +2,28 @@
 	import { localeStore } from '../i18n.svelte';
 	import { _ } from 'svelte-i18n';
 	import Carousel from 'svelte-light-carousel';
-	const photos = Array.from({ length: 22 }, (_, i) => ({ src: `/${i + 1}.png` }));
+	import { onMount } from 'svelte';
+	const photos = Array.from({ length: 22 }, (_, i) => ({ src: `/${i + 1}.png`, key: i + 1 }));
 	let dotCarousel: HTMLDivElement; // 썸네일 캐러셀 요소를 참조하기 위한 변수
+	onMount(() => {
+		if (dotCarousel) {
+			dotCarousel.scrollTo({ left: 0, behavior: 'auto' });
+		}
+	});
 </script>
 
 <section class="gallery">
 	<div class="header">
 		<h2 class="title {localeStore.locale}">{$_('gallery.title')}</h2>
 	</div>
-	<Carousel slides={photos} arrows={false} key={`gallery-${photos.length}`}>
+	<Carousel slides={photos} arrows={false}>
 		<div slot="slide" let:slide>
 			<img class="thumbnail" src={slide.src} alt="" />
 		</div>
 		<div slot="dots" let:dots let:scrollTo>
 			<!-- 동그라미 인디케이터 -->
 			<div class="custom-dots">
-				{#each dots as dot, i}
+				{#each dots as dot, i (i)}
 					<span
 						class="dot {dot.active ? 'active' : ''}"
 						on:click={() => scrollTo(i)}
@@ -28,7 +34,7 @@
 			<div class="carousel-dots-container">
 				<button class="dot-arrow dot-prev-arrow" on:click={() => dotCarousel.scrollBy({ left: -70, behavior: 'smooth' })}>&lt;</button>
 				<div class="carousel-dots" bind:this={dotCarousel}>
-					{#each dots as dot, i}
+					{#each dots as dot, i (i)}
 						<button
 							class="carousel-dot {dot.active ? 'active' : ''}"
 							on:click={() => scrollTo(i)}
