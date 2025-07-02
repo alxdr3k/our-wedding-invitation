@@ -2,7 +2,7 @@
 	import { localeStore } from '../i18n.svelte';
 	import { _ } from 'svelte-i18n';
 	import Carousel from 'svelte-light-carousel';
-	const photos = Array.from({ length: 23 }, (_, i) => ({ src: `/${i + 1}.webp` }));
+	const photos = Array.from({ length: 22 }, (_, i) => ({ src: `/${i + 1}.png` }));
 	let dotCarousel: HTMLDivElement; // 썸네일 캐러셀 요소를 참조하기 위한 변수
 </script>
 
@@ -10,7 +10,7 @@
 	<div class="header">
 		<h2 class="title {localeStore.locale}">{$_('gallery.title')}</h2>
 	</div>
-	<Carousel slides={photos} arrows={false}>
+	<Carousel slides={photos} arrows={false} key={`gallery-${photos.length}`}>
 		<div slot="slide" let:slide>
 			<img class="thumbnail" src={slide.src} alt="" />
 		</div>

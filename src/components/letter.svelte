@@ -28,9 +28,8 @@
 			</div>
 		{:else}
 			<div class="family-description kr">
-				<span class="groom">신랑 김윤근</span>
-				<span class="name-divider" style="margin: 0 1em;">{@html nameDivider}</span>
-				<span class="bride">신부 정수진</span>
+				<span class="groom-line">김성훈 <span class="name-divider">{@html nameDivider}</span> 윤경숙의 장남 <span class="groom-name">윤근</span></span>
+				<span class="bride-line">정재철 <span class="name-divider">{@html nameDivider}</span> 김선순의 장녀 <span class="bride-name">수진</span></span>
 			</div>
 		{/if}
 	</div>
@@ -112,7 +111,7 @@
 	.family-description {
 		margin-top: 2em;
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		gap: 0.5em;
@@ -128,6 +127,21 @@
 			align-items: center;
 			justify-content: center;
 			margin: 0 0.5em;
+		}
+
+		.groom-line, .bride-line {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			margin-bottom: 0.5em;
+			gap: 0.2em;
+		}
+
+		.groom-name, .bride-name {
+			font-size: 1.1em;
+			font-weight: bold;
+			color: $primary-color;
 		}
 	}
 </style>
