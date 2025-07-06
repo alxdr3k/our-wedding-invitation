@@ -28,8 +28,8 @@
 			</div>
 		{:else}
 			<div class="family-description kr">
-				<span class="groom-line">김성훈 <span class="name-divider">{@html nameDivider}</span> 윤경숙의 장남 <span class="groom-name">윤근</span></span>
-				<span class="bride-line">정재철 <span class="name-divider">{@html nameDivider}</span> 김선순의 장녀 <span class="bride-name">수진</span></span>
+				<span class="groom-line">김성훈 <span class="name-divider">{@html nameDivider}</span> 윤경숙 &nbsp;의 장남&nbsp; <span class="groom-name">윤근</span></span>
+				<span class="bride-line">정재철 <span class="name-divider">{@html nameDivider}</span> 김선순 &nbsp;의 장녀&nbsp; <span class="bride-name">수진</span></span>
 			</div>
 		{/if}
 	</div>
