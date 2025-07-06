@@ -80,7 +80,7 @@
 
 	img.thumbnail {
 		display: block;
-		max-width: 100vw;
+		max-width: 600px;
 		max-height: 60vh;
 		width: auto;
 		height: auto;
