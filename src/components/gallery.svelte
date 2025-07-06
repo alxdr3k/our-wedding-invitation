@@ -16,7 +16,7 @@
 	<div class="header">
 		<h2 class="title {localeStore.locale}">{$_('gallery.title')}</h2>
 	</div>
-	<Carousel slides={photos} arrows={false}>
+	<Carousel slides={photos} arrows={true}>
 		<div slot="slide" let:slide>
 			<img class="thumbnail" src={slide.src} alt="" />
 		</div>
@@ -32,7 +32,11 @@
 			</div>
 			<!-- 기존 썸네일 프리뷰 -->
 			<div class="carousel-dots-container">
-				<button class="dot-arrow dot-prev-arrow" on:click={() => dotCarousel.scrollBy({ left: -70, behavior: 'smooth' })}>&lt;</button>
+				<button class="dot-arrow dot-prev-arrow" on:click={() => dotCarousel.scrollBy({ left: -70, behavior: 'smooth' })}>
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z" fill="currentColor"/>
+					</svg>
+				</button>
 				<div class="carousel-dots" bind:this={dotCarousel}>
 					{#each dots as dot, i (i)}
 						<button
@@ -43,7 +47,11 @@
 						</button>
 					{/each}
 				</div>
-				<button class="dot-arrow dot-next-arrow" on:click={() => dotCarousel.scrollBy({ left: 70, behavior: 'smooth' })}>&gt;</button>
+				<button class="dot-arrow dot-next-arrow" on:click={() => dotCarousel.scrollBy({ left: 70, behavior: 'smooth' })}>
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M8.59 16.59L10 18L16 12L10 6L8.59 7.41L13.17 12L8.59 16.59Z" fill="currentColor"/>
+					</svg>
+				</button>
 			</div>
 		</div>
 	</Carousel>
@@ -117,31 +125,65 @@
 		margin: 50% 0%;
 	}
 
+	/* Material UI/Ant Design 스타일의 메인 화살표 */
 	:global(.carousel-arrow) {
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
-		background-color: transparent;
-		color: white;
+		background-color: rgba(255, 255, 255, 0.9);
+		color: #333;
 		border: none;
-		padding: 10px;
+		padding: 12px;
 		cursor: pointer;
 		z-index: 10;
-		font-size: 1.5em;
 		border-radius: 50%;
-		width: 40px;
-		height: 40px;
+		width: 48px;
+		height: 48px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		backdrop-filter: blur(10px);
+		font-size: 0; /* 텍스트 화살표 숨기기 */
+		
+		&:hover {
+			background-color: rgba(255, 255, 255, 1);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+			transform: translateY(-50%) scale(1.05);
+		}
+		
+		&:active {
+			transform: translateY(-50%) scale(0.95);
+		}
+		
+		/* Material Icons 화살표 추가 */
+		&::before {
+			content: '';
+			width: 24px;
+			height: 24px;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z' fill='%23333'/%3E%3C/svg%3E");
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			transition: transform 0.2s ease;
+		}
+		
+		&:hover::before {
+			transform: scale(1.1);
+		}
 	}
 
 	:global(.prev-arrow) {
-		left: 10px;
+		left: 16px;
 	}
 
 	:global(.next-arrow) {
-		right: 10px;
+		right: 16px;
+		
+		&::before {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M8.59 16.59L10 18L16 12L10 6L8.59 7.41L13.17 12L8.59 16.59Z' fill='%23333'/%3E%3C/svg%3E");
+		}
 	}
 
 	:global(.carousel-dots) {
@@ -169,22 +211,32 @@
 	}
 
 	:global(.dot-arrow) {
-		background-color: transparent; /* 투명 배경 */
-		color: black; /* 흰색 화살표 */
+		background-color: rgba(255, 255, 255, 0.8);
+		color: #333;
 		border: none;
-		padding: 10px;
+		padding: 8px;
 		cursor: pointer;
 		z-index: 10;
-		border-radius: 50%; /* 둥근 모양 */
-		margin: 0 5px;
+		border-radius: 50%;
+		margin: 0 8px;
 		flex-shrink: 0;
-		font-size: 1.5em; /* 메인 화살표와 동일한 크기 */
-		font-weight: normal; /* font-weight 제거 (기본값으로) */
-		width: 30px;
-		height: 30px;
+		width: 36px;
+		height: 36px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+		transition: all 0.2s ease;
+		
+		&:hover {
+			background-color: rgba(255, 255, 255, 1);
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+			transform: scale(1.05);
+		}
+		
+		&:active {
+			transform: scale(0.95);
+		}
 	}
 
 	:global(.carousel-dot) {
@@ -197,10 +249,16 @@
 		height: 60px;
 		border-radius: 4px;
 		flex-shrink: 0;
+		transition: all 0.2s ease;
+		
+		&:hover {
+			transform: scale(1.05);
+		}
 	}
 
 	:global(.carousel-dot.active) {
 		border-color: $primary-color;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	}
 
 	:global(.dot-thumbnail) {
@@ -208,6 +266,7 @@
 		height: 100%;
 		object-fit: cover;
 		display: block;
+		border-radius: 2px;
 	}
 
 	.custom-dots {
@@ -223,16 +282,23 @@
 	}
 
 	.dot {
-		width: 5px;
-		height: 5px;
+		width: 6px;
+		height: 6px;
 		border-radius: 50%;
-		background: #ddd;
+		background: rgba(255, 255, 255, 0.6);
 		display: inline-block;
-		transition: background 0.2s;
+		transition: all 0.3s ease;
 		cursor: pointer;
+		
+		&:hover {
+			background: rgba(255, 255, 255, 0.8);
+			transform: scale(1.2);
+		}
 	}
 
 	.dot.active {
 		background: $primary-color;
+		transform: scale(1.3);
+		box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 	}
 </style>
