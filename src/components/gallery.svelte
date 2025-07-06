@@ -14,13 +14,14 @@
 	});
 </script>
 
+{#if mounted}
 <section class="gallery">
 	<div class="header">
 		<h2 class="title {localeStore.locale}">{$_('gallery.title')}</h2>
 	</div>
 	<Carousel slides={photos} arrows={false}>
 		<div slot="slide" let:slide>
-			<img class="thumbnail" src={slide.src} alt="" />
+			<img class="thumbnail" src={slide.src} alt="" loading="lazy" />
 		</div>
 		<div slot="dots" let:dots let:scrollTo>
 			<!-- 동그라미 인디케이터 -->
@@ -29,6 +30,9 @@
 					<span
 						class="dot {dot.active ? 'active' : ''}"
 						on:click={() => scrollTo(i)}
+						role="button"
+						tabindex="0"
+						on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') scrollTo(i); }}
 					></span>
 				{/each}
 			</div>
@@ -45,7 +49,7 @@
 							class="carousel-dot {dot.active ? 'active' : ''}"
 							on:click={() => scrollTo(i)}
 						>
-							<img src={photos[i].src} alt={`thumbnail ${i + 1}`} class="dot-thumbnail" />
+							<img src={photos[i].src} alt={`thumbnail ${i + 1}`} class="dot-thumbnail" loading="lazy" />
 						</button>
 					{/each}
 				</div>
@@ -58,6 +62,7 @@
 		</div>
 	</Carousel>
 </section>
+{/if}
 
 <style lang="scss">
 	section.gallery {
@@ -71,28 +76,6 @@
 
 	h2.title {
 		text-align: center;
-		&.en {
-			@extend .title-font-en;
-			letter-spacing: 1px;
-		}
-
-		&.kr {
-			@extend .title-font-kr;
-			letter-spacing: 1px;
-		}
-	}
-
-	p.sub-title {
-		text-align: center;
-		&.kr {
-			margin-top: 0.9em;
-			font-size: 0.9rem;
-		}
-
-		&.en {
-			margin-top: 0.5em;
-			font-size: 1.2rem;
-		}
 	}
 
 	img.thumbnail {
