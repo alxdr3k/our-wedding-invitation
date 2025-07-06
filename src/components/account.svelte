@@ -68,9 +68,11 @@
                         </div>
                         <div class="account-row">
                             <span class="account-value">{account.bank}</span>
+                            {#if account.url}
                             <button class="kakaopay-btn {localeStore.locale}" on:click={() => openKakaoPay(account.url)}>
                                 <img src="payment_icon_yellow_small.png" alt="KakaoPay icon" class="kakaopay-image-icon" />
                             </button>
+                            {/if}
                         </div>
                         <div class="account-row">
                             <span class="account-value">{account.number}</span>
