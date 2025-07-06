@@ -5,7 +5,9 @@
 	import { onMount } from 'svelte';
 	const photos = Array.from({ length: 28 }, (_, i) => ({ src: `/${i + 1}.png`, key: i + 1 }));
 	let dotCarousel: HTMLDivElement; // 썸네일 캐러셀 요소를 참조하기 위한 변수
+	let mounted = false;
 	onMount(() => {
+		mounted = true;
 		if (dotCarousel) {
 			dotCarousel.scrollTo({ left: 0, behavior: 'auto' });
 		}
@@ -16,45 +18,39 @@
 	<div class="header">
 		<h2 class="title {localeStore.locale}">{$_('gallery.title')}</h2>
 	</div>
-	<Carousel slides={photos} arrows={true}>
-		<div slot="slide" let:slide>
-			<img class="thumbnail" src={slide.src} alt="" />
-		</div>
-		<div slot="dots" let:dots let:scrollTo>
-			<!-- 동그라미 인디케이터 -->
-			<div class="custom-dots">
-				{#each dots as dot, i (i)}
-					<span
-						class="dot {dot.active ? 'active' : ''}"
-						on:click={() => scrollTo(i)}
-					></span>
-				{/each}
+	{#if mounted}
+		<Carousel slides={photos} arrows={false}>
+			<div slot="slide" let:slide>
+				<img class="thumbnail" src={slide.src} alt="" loading="lazy" />
 			</div>
-			<!-- 기존 썸네일 프리뷰 -->
-			<div class="carousel-dots-container">
-				<button class="dot-arrow dot-prev-arrow" on:click={() => dotCarousel.scrollBy({ left: -70, behavior: 'smooth' })}>
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z" fill="currentColor"/>
-					</svg>
-				</button>
-				<div class="carousel-dots" bind:this={dotCarousel}>
+			<div slot="dots" let:dots let:scrollTo>
+				<!-- 동그라미 인디케이터 -->
+				<div class="custom-dots">
 					{#each dots as dot, i (i)}
-						<button
-							class="carousel-dot {dot.active ? 'active' : ''}"
+						<span
+							class="dot {dot.active ? 'active' : ''}"
 							on:click={() => scrollTo(i)}
-						>
-							<img src={photos[i].src} alt={`thumbnail ${i + 1}`} class="dot-thumbnail" />
-						</button>
+						></span>
 					{/each}
 				</div>
-				<button class="dot-arrow dot-next-arrow" on:click={() => dotCarousel.scrollBy({ left: 70, behavior: 'smooth' })}>
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M8.59 16.59L10 18L16 12L10 6L8.59 7.41L13.17 12L8.59 16.59Z" fill="currentColor"/>
-					</svg>
-				</button>
+				<!-- 기존 썸네일 프리뷰 -->
+				<div class="carousel-dots-container">
+					<button class="dot-arrow dot-prev-arrow" on:click={() => dotCarousel.scrollBy({ left: -70, behavior: 'smooth' })}>&lt;</button>
+					<div class="carousel-dots" bind:this={dotCarousel}>
+						{#each dots as dot, i (i)}
+							<button
+								class="carousel-dot {dot.active ? 'active' : ''}"
+								on:click={() => scrollTo(i)}
+							>
+								<img src={photos[i].src} alt={`thumbnail ${i + 1}`} class="dot-thumbnail" loading="lazy" />
+							</button>
+						{/each}
+					</div>
+					<button class="dot-arrow dot-next-arrow" on:click={() => dotCarousel.scrollBy({ left: 70, behavior: 'smooth' })}>&gt;</button>
+				</div>
 			</div>
-		</div>
-	</Carousel>
+		</Carousel>
+	{/if}
 </section>
 
 <style lang="scss">
