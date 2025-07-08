@@ -8,19 +8,19 @@
     let showAccountModal = false;
 
     const allAccounts = [
-        { name: '김성훈', bank: '토스뱅크', number: '1001-2476-6021' ,url: "" },
-        { name: '윤경숙', bank: '토스뱅크', number: '1001-2476-6021' ,url: "" },
-        { name: '김윤근', bank: '토스뱅크', number: '1001-2476-6021' ,url: "https://qr.kakaopay.com/Ej8WUdAAo" },
-        { name: '정재철', bank: '농협은행', number: '132-12-174641' ,url: "" },
-        { name: '김선순', bank: '신한은행', number: '110-107-947221' ,url: "" },
-        { name: '정수진', bank: '신한은행', number: '110-234-477360' ,url: "https://qr.kakaopay.com/Ej9L4tjDn" }
+        { name: '김성훈', bank: '농축협', number: '351-0943-4862-13', url: "" },
+        { name: '윤경숙', bank: '우체국', number: '312256-02-036134', url: "" },
+        { name: '김윤근', bank: '토스뱅크', number: '1001-2476-6021', url: "https://qr.kakaopay.com/Ej8WUdAAo" },
+        { name: '정재철', bank: '농협은행', number: '132-12-174641', url: "" },
+        { name: '김선순', bank: '신한은행', number: '110-107-947221', url: "" },
+        { name: '정수진', bank: '신한은행', number: '110-234-477360', url: "https://qr.kakaopay.com/Ej9L4tjDn" }
     ];
 
     $: accountsToDisplay = accountGroup === 0 ? allAccounts.slice(0, 3) : allAccounts.slice(3, 6);
 
     function copyAccount(accountNumber: string) {
         navigator.clipboard.writeText(accountNumber)
-            .then(() => alert($_('account.copied_message')))
+            .then(() => alert('계좌번호가 복사되었습니다.'))
             .catch(err => console.error('Failed to copy: ', err));
     }
 
